@@ -75,10 +75,10 @@ public class AgendaDeCitasMedicasAppGUI extends JFrame{
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
-         // Aquí creas un objeto Doctor (puedes obtener estos datos de una base de datos más adelante)
+        
          Doctor doctor = new Doctor("rvangelse", "2601");
 
-        // Verificas el usuario y contraseña
+      
         if (doctor.getUsername().equals(username) && doctor.checkPassword(password)) {
             JOptionPane.showMessageDialog(this, "Login Successful");
         } else {
