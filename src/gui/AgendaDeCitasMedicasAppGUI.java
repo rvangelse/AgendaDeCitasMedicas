@@ -1,89 +1,110 @@
 package gui;
-
-import java.awt.Font;
+import model.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import model.Doctor;
 
-public class AgendaDeCitasMedicasAppGUI extends JFrame{
+public class AgendaDeCitasMedicasAppGUI extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private Doctor doctor; 
 
-    public AgendaDeCitasMedicasAppGUI(){
-
-       
-
+    public AgendaDeCitasMedicasAppGUI() {
         super("Agenda de Citas Medicas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize( 450, 650);
+        setSize(450, 650);
         setLocationRelativeTo(null);
-    
-        AddGUIComponents();
 
+        // Cargar la imagen de fondo
+        Image backgroundImage = new ImageIcon("/home/rvangelse/Documentos/AgendaDeCitasMedicas/src/fondo.jpg").getImage();
+
+        // Crear el panel de login con la imagen de fondo
+        JPanel loginPanel = new ImagePanel(backgroundImage);
+        loginPanel.setLayout(new GridBagLayout());
+
+        addGUIComponents(loginPanel);
+
+        this.getContentPane().add(loginPanel);
     }
-    public void AddGUIComponents(){
-        SpringLayout springLayout = new SpringLayout();
-        JPanel loginPanel = new JPanel();
-        loginPanel.setLayout(springLayout);
 
-        //username
+    public void addGUIComponents(JPanel loginPanel) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Margins between components
+
+        // Username Label
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.LINE_END;
+        loginPanel.add(usernameLabel, gbc);
+
+        // Username Field
         usernameField = new JTextField(15);
         usernameField.setFont(new Font("Dialog", Font.PLAIN, 18));
-        springLayout.putConstraint(SpringLayout.WEST, usernameLabel, 35, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, usernameLabel, 125, SpringLayout.NORTH, loginPanel);
-        springLayout.putConstraint(SpringLayout.WEST, usernameField, 135, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, usernameField, 125, SpringLayout.NORTH, loginPanel);
-        loginPanel.add(usernameLabel);
-        loginPanel.add(usernameField);
-        
-        //password
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        loginPanel.add(usernameField, gbc);
+
+        // Password Label
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.LINE_END;
+        loginPanel.add(passwordLabel, gbc);
+
+        // Password Field
         passwordField = new JPasswordField(15);
         passwordField.setFont(new Font("Dialog", Font.PLAIN, 18));
-        springLayout.putConstraint(SpringLayout.WEST, passwordLabel, 35, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, 180, SpringLayout.NORTH, loginPanel);
-        springLayout.putConstraint(SpringLayout.WEST, passwordField, 135, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordField, 180, SpringLayout.NORTH, loginPanel);
-        loginPanel.add(passwordLabel);
-        loginPanel.add(passwordField);
-        //login button
-        JButton LoginButton = new JButton("Login");
-        LoginButton.setFont(new Font("Dialog", Font.BOLD, 18));
-        springLayout.putConstraint(SpringLayout.WEST, LoginButton, 185, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, LoginButton, 260, SpringLayout.NORTH, loginPanel);
-        LoginButton.addActionListener(new ActionListener() {
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        loginPanel.add(passwordField, gbc);
+
+        // Login Button
+        JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Dialog", Font.BOLD, 18));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 authenticateUser();
-
             }
         });
 
+        loginPanel.add(loginButton, gbc);
 
-        loginPanel.add(LoginButton);
-        this.getRootPane().setDefaultButton(LoginButton);
-        this.getContentPane().add(loginPanel);
-
+        // Set the loginButton as the default button to press when Enter is hit
+        this.getRootPane().setDefaultButton(loginButton);
     }
 
     private void authenticateUser() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
-        
-         Doctor doctor = new Doctor("rvangelse", "2601");
+        Doctor doctor = new Doctor("rvangelse", "2601");
 
-      
         if (doctor.getUsername().equals(username) && doctor.checkPassword(password)) {
-            JOptionPane.showMessageDialog(this, "Login Successful");
+            DoctorMenu doctorMenu = new DoctorMenu();
+            doctorMenu.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Login Failed");
         }
     }
-    
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new AgendaDeCitasMedicasAppGUI().setVisible(true);
+            }
+        });
+    }
 }
