@@ -29,10 +29,10 @@ public class AgendaDeCitasMedicasAppGUI extends JFrame {
 
     public void addGUIComponents(JPanel loginPanel) {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Margins between components
+        gbc.insets = new Insets(25, 7, 25, 2); // Margins between components
 
         // Username Label
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel usernameLabel = new JLabel("Usuario :");
         usernameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -49,7 +49,7 @@ public class AgendaDeCitasMedicasAppGUI extends JFrame {
         loginPanel.add(usernameField, gbc);
 
         // Password Label
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("Contraseña :");
         passwordLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -66,7 +66,7 @@ public class AgendaDeCitasMedicasAppGUI extends JFrame {
         loginPanel.add(passwordField, gbc);
 
         // Login Button
-        JButton loginButton = new JButton("Login");
+        JButton loginButton = new JButton("Ingresar");
         loginButton.setFont(new Font("Dialog", Font.BOLD, 18));
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -96,7 +96,7 @@ public class AgendaDeCitasMedicasAppGUI extends JFrame {
             doctorMenu.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Login Failed");
+            JOptionPane.showMessageDialog(this, "Datos Incorrectos");
         }
     }
 
