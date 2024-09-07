@@ -1,4 +1,4 @@
-package ui;
+package gui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -56,38 +56,10 @@ public class UIMenu {
         patients.add(new Patient("Anahí Salgado", "anahi@mail.com"));
         patients.add(new Patient("Roberto Rodríguez", "roberto@mail.com"));
         patients.add(new Patient("Carlos Sánchez", "carlos@mail.com"));
+}
 
 
-        boolean emailCorrect = false;
-        do {
-            System.out.println("Insert your email: [a@a.com]");
-            Scanner sc = new Scanner(System.in);
-            String email = sc.nextLine();
-            if (userType == 1){
-                for (Doctor d: doctors){
-                    if (d.getEmail().equals(email)){
-                        emailCorrect = true;
-                        //Obtener el usuario logeado
-                        doctorLogged = d;
-                        UIDoctorMenu.showDoctorMenu();
-                    }
-                }
-            }
 
-            if (userType == 2){
-                for (Patient p: patients){
-                    if (p.getEmail().equals(email)){
-                        emailCorrect = true;
-                        patinetLogged = p;
-                        //showPatientMenu
-                    }
-                }
-            }
-
-
-        }while (!emailCorrect);
-
-    }
 
     static void showPatientMenu(){
         int response = 0;
